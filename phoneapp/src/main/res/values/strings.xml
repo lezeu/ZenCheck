@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">phoneapp</string>
+    <string name="hello_msg">Hello to the main page</string>
+</resources>
