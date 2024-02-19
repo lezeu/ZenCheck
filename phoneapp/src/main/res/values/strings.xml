@@ -16,4 +16,9 @@
     <string name="profile_name">Profile Name</string>
     <string name="profile_email">Profile email</string>
     <string name="theme_switch">Switch theme</string>
+    <string name="dashboard_title">Dashboard</string>
+    <string name="recent_activity_summary_description">Recent activity summary</string>
+    <string name="menu_icon_for_drawer">menu icon for drawer</string>
+    <string name="navigation_drawer_open">open drawer</string>
+    <string name="navigation_drawer_close">close drawer</string>
 </resources>
