@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            assert e1 != null;
             final float distanceX = e2.getX() - e1.getX();
             final float distanceY = e2.getY() - e1.getY();
 

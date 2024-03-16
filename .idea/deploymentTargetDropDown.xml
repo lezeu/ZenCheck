@@ -2,7 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="app">
+      <entry key="phoneapp">
         <State>
           <runningDeviceTargetSelectedWithDropDown>
             <Target>
@@ -18,8 +18,21 @@
           <timeTargetWasSelectedWithDropDown value="2024-02-18T15:23:30.672610200Z" />
         </State>
       </entry>
-      <entry key="phoneapp">
-        <State />
+      <entry key="watchapp">
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="SERIAL_NUMBER" />
+                  <value value="adb-RF8R41GL67W-xiQ0wf._adb-tls-connect._tcp" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-03-16T17:34:20.152653Z" />
+        </State>
       </entry>
     </value>
   </component>
