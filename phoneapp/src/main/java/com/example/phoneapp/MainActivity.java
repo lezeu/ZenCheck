@@ -1,6 +1,7 @@
 package com.example.phoneapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.phoneapp.profile.ProfileActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,21 +20,31 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private GestureDetector gestureDetector;
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.design_navigation_view);
-
         gestureDetector = new GestureDetector(this, new MyGestureListener());
 
         ScrollView scrollView = findViewById(R.id.scroll_view);
         scrollView.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
 
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.profile_name_picture_layout -> startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                case R.id.nav_dashboard -> startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+//                case R.id.nav_stats -> startActivity(new Intent(MainActivity.this, StatsActivity.class));
+//                case R.id.nav_friends -> startActivity(new Intent(MainActivity.this, FriendsActivity.class));
+//                case R.id.nav_notifications -> startActivity(new Intent(MainActivity.this, NotificationActivity.class));
+                case R.id.nav_profile -> startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+//                case R.id.nav_about -> startActivity(new Intent(MainActivity.this, AboutActivity.class));
+            }
+            return false;
+        });
     }
 
     @Override
