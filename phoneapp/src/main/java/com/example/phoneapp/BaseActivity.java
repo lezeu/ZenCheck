@@ -30,7 +30,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void setupDrawer(int drawerLayoutId, int navigationViewId) {
         drawerLayout = findViewById(drawerLayoutId);
         navigationView = findViewById(navigationViewId);
-        scrollView = findViewById(R.id.scroll_view);
+        scrollView = findViewById(R.id.scrollView);
 
         gestureDetector = new GestureDetector(this, new MyGestureListener());
 
