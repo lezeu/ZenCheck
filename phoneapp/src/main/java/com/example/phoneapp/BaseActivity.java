@@ -10,17 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.phoneapp.challenges.ChallengeActivity;
 import com.example.phoneapp.profile.ProfileActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class BaseActivity extends AppCompatActivity {
 
-    private static final int NAV_DASHBOARD = 2131231003;
-    private static final int NAV_STATS = 2131231003;
-    private static final int NAV_FRIENDS = 2131231002;
-    private static final int NAV_NOTIFICATIONS = 2131231005;
-    private static final int NAV_PROFILE = 2131231006;
-    private static final int NAV_ABOUT = 2131231002;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private GestureDetector gestureDetector;
@@ -40,20 +35,22 @@ public class BaseActivity extends AppCompatActivity {
         });
 
         navigationView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case NAV_DASHBOARD ->
-                    startActivity(new Intent(BaseActivity.this, MainActivity.class));
-//                case NAV_STATS ->
-//                    startActivity(new Intent(BaseActivity.this, StatsActivity.class));
-//                case NAV_FRIENDS ->
-//                    startActivity(new Intent(BaseActivity.this, FriendsActivity.class));
-//                case NAV_NOTIFICATIONS ->
-//                    startActivity(new Intent(BaseActivity.this, NotificationsActivity.class));
-                case NAV_PROFILE ->
-                    startActivity(new Intent(BaseActivity.this, ProfileActivity.class));
-//                case NAV_ABOUT ->
-//                    startActivity(new Intent(BaseActivity.this, AboutActivity.class));
-                default -> System.out.println(item.getItemId());
+            int id = item.getItemId();
+
+            if (id == R.id.nav_dashboard) {
+                startActivity(new Intent(BaseActivity.this, MainActivity.class));
+            } else if (id == R.id.nav_stats) {
+
+            } else if (id == R.id.nav_challenges) {
+                startActivity(new Intent(BaseActivity.this, ChallengeActivity.class));
+            } else if (id == R.id.nav_friends) {
+
+            } else if (id == R.id.nav_notifications) {
+
+            } else if (id == R.id.nav_profile) {
+                startActivity(new Intent(BaseActivity.this, ProfileActivity.class));
+            } else if (id == R.id.nav_about) {
+
             }
 
             drawerLayout.closeDrawer(GravityCompat.START);
