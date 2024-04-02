@@ -21,4 +21,5 @@
     <string name="menu_icon_for_drawer">menu icon for drawer</string>
     <string name="navigation_drawer_open">open drawer</string>
     <string name="navigation_drawer_close">close drawer</string>
+    <string name="profile_name_picture">Profile</string>
 </resources>
