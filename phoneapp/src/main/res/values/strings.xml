@@ -22,4 +22,17 @@
     <string name="navigation_drawer_open">open drawer</string>
     <string name="navigation_drawer_close">close drawer</string>
     <string name="profile_name_picture">Profile</string>
+    <string name="arch">arch</string>
+    <string name="profile_picture">profile</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="height">Height\n</string>
+    <string name="weight">Weight</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender\n</string>
+    <string name="personal_data">Personal Data</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="edit">Edit\n</string>
+    <string name="personal_data2">Personal Data</string>
+    <string name="general_info">General info</string>
 </resources>
