@@ -9,6 +9,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupDrawer(R.id.drawer_layout, R.id.design_navigation_view);
+        setupDrawer(R.id.ConstraintLayout, R.id.design_navigation_view);
     }
 }
