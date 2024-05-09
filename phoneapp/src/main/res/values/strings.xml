@@ -22,4 +22,12 @@
     <string name="navigation_drawer_open">open drawer</string>
     <string name="navigation_drawer_close">close drawer</string>
     <string name="profile_name_picture">Profile</string>
+    <string name="bpm_default_value">BPM</string>
+    <string name="measure_bpm">MEASURE BPM</string>
+    <string name="bpm_instructions">TODO: add graph?</string>
+    <string name="stress_level_title">Stress Level</string>
+    <string name="pulse_title">Beats per minute</string>
+    <string name="stress_level_default">Stress level</string>
+    <string name="stress_description_hint">TODO: Add details by yourself</string>
+    <string name="submit_button">Measure Stress</string>
 </resources>

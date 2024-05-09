@@ -1,0 +1,11 @@
+
+b
+java:S1854"@Remove this useless assignment to local variable "progressCard".(ì§Œ˜ùÿÿÿÿ8Èªäçõ1
+Z
+java:S1854"=Remove this useless assignment to local variable "statsCard".(”­û8Èªäçõ1
+K
+java:S1481".Remove this unused "statsCard" local variable.(”­û8Ëªäçõ1
+S
+java:S1481"1Remove this unused "progressCard" local variable.(ì§Œ˜ùÿÿÿÿ8Ìªäçõ1
+]	java:S125"<This block of commented-out lines of code should be removed.(ÌÊ»òÿÿÿÿÿ8Íªäçõ1
+]	java:S125!"<This block of commented-out lines of code should be removed.(°¾¯œøÿÿÿÿ8Ğªäçõ1
