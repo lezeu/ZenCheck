@@ -1,11 +1,11 @@
 
-b
-java:S1854"@Remove this useless assignment to local variable "progressCard".(ì§Œ˜ùÿÿÿÿ8Èªäçõ1
-Z
-java:S1854"=Remove this useless assignment to local variable "statsCard".(”­û8Èªäçõ1
-K
-java:S1481".Remove this unused "statsCard" local variable.(”­û8Ëªäçõ1
-S
-java:S1481"1Remove this unused "progressCard" local variable.(ì§Œ˜ùÿÿÿÿ8Ìªäçõ1
-]	java:S125"<This block of commented-out lines of code should be removed.(ÌÊ»òÿÿÿÿÿ8Íªäçõ1
-]	java:S125!"<This block of commented-out lines of code should be removed.(°¾¯œøÿÿÿÿ8Ğªäçõ1
+ˆ
+java:S1854"@Remove this useless assignment to local variable "progressCard".(ì§Œ˜ùÿÿÿÿ8Èªäçõ1J$faa6d045-9175-4abe-9f6e-65bd415b6790
+€
+java:S1854"=Remove this useless assignment to local variable "statsCard".(”­û8Èªäçõ1J$080aa129-461f-4eac-afad-e92d7a4acae9
+q
+java:S1481".Remove this unused "statsCard" local variable.(”­û8Ëªäçõ1J$fed2d82c-5d7a-4af7-94bd-fd15e6a92623
+y
+java:S1481"1Remove this unused "progressCard" local variable.(ì§Œ˜ùÿÿÿÿ8Ìªäçõ1J$228f3622-8c6b-45e7-a35c-c20a0f0470fd
+ƒ	java:S125"<This block of commented-out lines of code should be removed.(ÌÊ»òÿÿÿÿÿ8Íªäçõ1J$8b44cf49-3bab-44ce-b0bb-c10fdd301cb7
+ƒ	java:S125!"<This block of commented-out lines of code should be removed.(°¾¯œøÿÿÿÿ8Ğªäçõ1J$5cc93c3d-3b83-454d-a138-caaccf5ae2fc

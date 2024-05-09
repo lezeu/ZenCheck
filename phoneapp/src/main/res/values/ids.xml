@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="cardDetails" type="id">details</item>
-    <item name="cardProfile" type="id">card</item>
-    <item name="llProfileInfo" type="id">info</item>
-</resources>
