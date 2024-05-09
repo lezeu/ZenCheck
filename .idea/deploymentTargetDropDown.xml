@@ -10,28 +10,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\lezeu\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd" />
+                  <value value="C:\Users\iulia.patac\.android\avd\Pixel_6_Pro_API_34.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-03-25T13:02:19.037091600Z" />
-        </State>
-      </entry>
-      <entry key="watchapp">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="SERIAL_NUMBER" />
-                  <value value="adb-RF8R41GL67W-xiQ0wf._adb-tls-connect._tcp" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-03-16T17:34:20.152653Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-04-02T16:08:26.908868200Z" />
         </State>
       </entry>
     </value>
