@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">watchapp</string>
     <string name="hello">Hello</string>
+    <string name="go_to_bpm">Go to BPM</string>
+    <string name="go_to_stress">Go to Stress</string>
+    <string name="start_measurement">Start Measurement</string>
+    <string name="stop_measurement">Stop Measurement</string>
 </resources>

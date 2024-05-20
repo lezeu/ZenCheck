@@ -6,9 +6,10 @@ import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 
 import com.example.phoneapp.R;
-import com.example.phoneapp.activities.bpm.Pulse;
-import com.example.phoneapp.activities.bpm.Stress;
 import com.example.phoneapp.activities.challenges.ChallengeActivity;
+import com.example.phoneapp.activities.measuring.PulseActivity;
+import com.example.phoneapp.activities.measuring.StressActivity;
+import com.example.phoneapp.services.DataLayerListenerService;
 
 public class MainActivity extends BaseActivity {
 
@@ -19,9 +20,7 @@ public class MainActivity extends BaseActivity {
 
         setupDrawer(R.id.ConstraintLayout, R.id.design_navigation_view);
 
-        CardView statsCard = findViewById(R.id.card_zen_status);
         CardView challengesCard = findViewById(R.id.card_challenges);
-        CardView progressCard = findViewById(R.id.card_progress);
         CardView stressCard = findViewById(R.id.card_stress_level);
         CardView pulseCard = findViewById(R.id.card_average_bpm);
 
@@ -32,8 +31,11 @@ public class MainActivity extends BaseActivity {
 //        progressCard.setOnClickListener(v -> startActivity(
 //                new Intent(MainActivity.this, ProgressActivity.class)));
         stressCard.setOnClickListener(v -> startActivity(
-                new Intent(MainActivity.this, Stress.class)));
+                new Intent(MainActivity.this, StressActivity.class)));
         pulseCard.setOnClickListener(v -> startActivity(
-                new Intent(MainActivity.this, Pulse.class)));
+                new Intent(MainActivity.this, PulseActivity.class)));
+
+        // start services
+        startForegroundService(new Intent(this, DataLayerListenerService.class));
     }
 }

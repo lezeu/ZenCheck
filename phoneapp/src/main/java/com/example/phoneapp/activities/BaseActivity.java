@@ -18,7 +18,6 @@ import com.google.android.material.navigation.NavigationView;
 
 public class BaseActivity extends AppCompatActivity {
 
-
     private GestureDetector gestureDetector;
 
     @SuppressLint({"ClickableViewAccessibility", "NonConstantResourceId"})

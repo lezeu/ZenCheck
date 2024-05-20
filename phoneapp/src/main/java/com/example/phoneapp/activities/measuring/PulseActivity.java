@@ -1,13 +1,14 @@
-package com.example.phoneapp.activities.bpm;
+package com.example.phoneapp.activities.measuring;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 
 import com.example.phoneapp.R;
 import com.example.phoneapp.activities.BaseActivity;
 
-public class Pulse extends BaseActivity {
+public class PulseActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,5 +18,10 @@ public class Pulse extends BaseActivity {
 
         setupDrawer(R.id.drawer_layout, R.id.design_navigation_view);
 
+        Button bpmButton = findViewById(R.id.btn_measure_bpm);
+
+        bpmButton.setOnClickListener(v -> {
+            // TODO start measuring from watch
+        });
     }
 }

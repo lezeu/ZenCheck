@@ -1,4 +1,4 @@
-package com.example.phoneapp.activities.bpm;
+package com.example.phoneapp.activities.measuring;
 
 import android.os.Bundle;
 
@@ -7,7 +7,7 @@ import androidx.activity.EdgeToEdge;
 import com.example.phoneapp.R;
 import com.example.phoneapp.activities.BaseActivity;
 
-public class Stress extends BaseActivity {
+public class StressActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
