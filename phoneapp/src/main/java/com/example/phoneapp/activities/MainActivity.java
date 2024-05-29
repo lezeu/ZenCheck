@@ -9,7 +9,7 @@ import com.example.phoneapp.R;
 import com.example.phoneapp.activities.challenges.ChallengeActivity;
 import com.example.phoneapp.activities.measuring.PulseActivity;
 import com.example.phoneapp.activities.measuring.StressActivity;
-import com.example.phoneapp.services.DataLayerListenerService;
+import com.example.phoneapp.services.devicecommunication.DataLayerListenerService;
 
 public class MainActivity extends BaseActivity {
 

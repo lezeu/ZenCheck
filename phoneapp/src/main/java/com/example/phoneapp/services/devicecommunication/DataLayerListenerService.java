@@ -1,0 +1,82 @@
+package com.example.phoneapp.services.devicecommunication;
+
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.util.Log;
+
+import androidx.core.app.NotificationCompat;
+
+import com.example.phoneapp.R;
+import com.google.android.gms.wearable.DataClient;
+import com.google.android.gms.wearable.DataEvent;
+import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.Wearable;
+import com.google.android.gms.wearable.WearableListenerService;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class DataLayerListenerService extends WearableListenerService implements DataClient.OnDataChangedListener {
+    private static final String TAG = "ManualDebug";
+    private static final int NOTIFICATION_ID = 1;
+    private static final String CHANNEL_ID = "ForegroundServiceChannel";
+
+    private final Map<String, DataHandler> dataHandlerMap = new HashMap<>();
+
+    @SuppressLint("ForegroundServiceType")
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        createNotificationChannel();
+        Notification notification = buildForegroundNotification();
+        startForeground(NOTIFICATION_ID, notification);
+
+        DataClient dataClient = Wearable.getDataClient(this);
+        dataClient.addListener(this);
+
+        registerDataHandlers();
+    }
+
+    private void registerDataHandlers() {
+        dataHandlerMap.put("/sensor-data/demand/bpm", new BpmDataHandler.DemandDataHandler());
+        dataHandlerMap.put("/sensor-data/schedule/bpm", new BpmDataHandler.ScheduledDataHandler());
+        // more paths for data ex. pulse data
+    }
+
+    @Override
+    public void onDataChanged(DataEventBuffer dataEvents) {
+        for (DataEvent event : dataEvents) {
+            String path = event.getDataItem().getUri().getPath();
+            Log.d(TAG, "DataEvent received: " + path);
+
+            if (event.getType() == DataEvent.TYPE_CHANGED && dataHandlerMap.containsKey(path)) {
+                dataHandlerMap.get(path).handleData(event);
+            } else {
+                Log.w(TAG, "No handler registered for path: " + path);
+            }
+        }
+    }
+
+    private Notification buildForegroundNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Service Running")
+                .setContentText("This service is running in the background")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        return builder.build();
+    }
+
+    private void createNotificationChannel() {
+        CharSequence name = "Foreground";
+        String description = "Foreground description";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+        channel.setDescription(description);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+    }
+}

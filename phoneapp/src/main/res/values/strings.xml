@@ -43,4 +43,7 @@
     <string name="stress_level_default">Stress level</string>
     <string name="stress_description_hint">TODO: Add details by yourself</string>
     <string name="submit_button">Measure Stress</string>
+    <string name="average_bpm_graph">Average BPM Graph</string>
+    <string name="high_bpm_graph">High BPM Graph</string>
+    <string name="low_bpm_graph">Low BPM Graph</string>
 </resources>

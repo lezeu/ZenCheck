@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.watchapp.activities.measuring.PulseActivity;
 import com.example.watchapp.activities.measuring.StressActivity;
+import com.example.watchapp.services.BpmMeasurementPeriodicallyService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,11 +20,15 @@ public class MainActivity extends AppCompatActivity {
         Button goToBpmButton = findViewById(R.id.btnNavigateToBPM);
         Button goToStressButton = findViewById(R.id.btnNavigateToStress);
 
-        goToBpmButton.setOnClickListener(v -> {
-            startActivity(new Intent(this, PulseActivity.class));
-        });
-        goToStressButton.setOnClickListener(v -> {
-            startActivity(new Intent(this, StressActivity.class));
-        });
+        goToBpmButton.setOnClickListener(v -> startActivity(new Intent(this, PulseActivity.class)));
+        goToStressButton.setOnClickListener(v -> startActivity(new Intent(this, StressActivity.class)));
+
+        startService(new Intent(this, BpmMeasurementPeriodicallyService.class));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(this, BpmMeasurementPeriodicallyService.class));
     }
 }

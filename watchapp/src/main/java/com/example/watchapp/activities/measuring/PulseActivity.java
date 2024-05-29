@@ -52,18 +52,6 @@ public class PulseActivity extends AppCompatActivity implements SensorEventListe
     }
 
     @Override
-    public void onPause() { // in case of display timeout - stop measurement
-        super.onPause();
-        sensorManager.unregisterListener(this);
-    }
-
-    @Override
-    public void onResume() { // continue measurement after turning on the display
-        super.onResume();
-        sensorManager.registerListener(this, heartRateSensor, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_HEART_RATE) {
             float heartRate = event.values[0];
@@ -112,9 +100,9 @@ public class PulseActivity extends AppCompatActivity implements SensorEventListe
      * send bpm to phone as well as timestamp to /sensor-data/bpm route
      * @param bpm - send bpm to phone
      */
-    private void sendBpmDataToPhone(float bpm) {
+    public void sendBpmDataToPhone(float bpm) {
         DataClient dataClient = Wearable.getDataClient(this);
-        PutDataMapRequest putDataMapRequest = PutDataMapRequest.create("/sensor-data/bpm");
+        PutDataMapRequest putDataMapRequest = PutDataMapRequest.create("/sensor-data/demand/bpm");
 
         putDataMapRequest.getDataMap().putFloat("bpm", bpm);
         putDataMapRequest.getDataMap().putLong("timestamp", System.currentTimeMillis());

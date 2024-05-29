@@ -3,10 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
 
     <application
+        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -37,7 +39,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".services.DataLayerListenerService"
+        <service android:name=".services.devicecommunication.DataLayerListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
