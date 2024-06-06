@@ -2,8 +2,8 @@ package com.example.phoneapp.services.devicecommunication;
 
 import android.util.Log;
 
-import com.example.phoneapp.api.measurements.BpmApi;
-import com.example.phoneapp.api.measurements.MyCallback;
+import com.example.phoneapp.api.bpm.BpmApi;
+import com.example.phoneapp.api.MyCallback;
 import com.example.phoneapp.dtos.bpm.BpmDto;
 import com.example.phoneapp.exceptions.ZenCheckException;
 import com.google.android.gms.wearable.DataEvent;
@@ -34,13 +34,12 @@ public class BpmDataHandler {
             BpmApi.INSTANCE.sendBpm(bpmDto, new MyCallback<>() {
                 @Override
                 public void onSuccess(BpmDto result) {
-                    Log.d(TAG, String.format("BPM Average: %f%nBPM High: %f%nBPM Low: %f%n at: %d",
-                            bpmAverage, bpmHigh, bpmLow, timestamp));
+                    Log.d(TAG, String.valueOf(result));
                 }
 
                 @Override
                 public void onFailure(ZenCheckException exception) {
-                    Log.d(TAG, exception.toString());
+                    throw new ZenCheckException(exception.getMessage());
                 }
             });
         }

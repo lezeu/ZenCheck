@@ -1,4 +1,4 @@
-package com.example.phoneapp.api.measurements;
+package com.example.phoneapp.api;
 
 import com.example.phoneapp.exceptions.ZenCheckException;
 

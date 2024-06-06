@@ -1,4 +1,4 @@
-package com.example.phoneapp.api.measurements;
+package com.example.phoneapp.api.bpm;
 
 import com.example.phoneapp.dtos.bpm.BpmDto;
 

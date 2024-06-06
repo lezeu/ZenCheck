@@ -20,7 +20,6 @@ import java.util.Map;
 
 public class DataLayerListenerService extends WearableListenerService implements DataClient.OnDataChangedListener {
     private static final String TAG = "ManualDebug";
-    private static final int NOTIFICATION_ID = 1;
     private static final String CHANNEL_ID = "ForegroundServiceChannel";
 
     private final Map<String, DataHandler> dataHandlerMap = new HashMap<>();
@@ -32,7 +31,7 @@ public class DataLayerListenerService extends WearableListenerService implements
 
         createNotificationChannel();
         Notification notification = buildForegroundNotification();
-        startForeground(NOTIFICATION_ID, notification);
+        startForeground(1, notification);
 
         DataClient dataClient = Wearable.getDataClient(this);
         dataClient.addListener(this);
@@ -43,14 +42,13 @@ public class DataLayerListenerService extends WearableListenerService implements
     private void registerDataHandlers() {
         dataHandlerMap.put("/sensor-data/demand/bpm", new BpmDataHandler.DemandDataHandler());
         dataHandlerMap.put("/sensor-data/schedule/bpm", new BpmDataHandler.ScheduledDataHandler());
-        // more paths for data ex. pulse data
+        dataHandlerMap.put("/sensor-data/scheduled/stress", new StressDataHandler.ScheduledDataHandler());
     }
 
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
         for (DataEvent event : dataEvents) {
             String path = event.getDataItem().getUri().getPath();
-            Log.d(TAG, "DataEvent received: " + path);
 
             if (event.getType() == DataEvent.TYPE_CHANGED && dataHandlerMap.containsKey(path)) {
                 dataHandlerMap.get(path).handleData(event);

@@ -46,4 +46,7 @@
     <string name="average_bpm_graph">Average BPM Graph</string>
     <string name="high_bpm_graph">High BPM Graph</string>
     <string name="low_bpm_graph">Low BPM Graph</string>
+    <string name="average_beats_per_minute">Average Beats Per Minute :</string>
+    <string name="highest_beats_per_minute">Highest Beats Per Minute :</string>
+    <string name="lowest_beats_per_minute">Lowest Beats Per Minute :</string>
 </resources>

@@ -20,7 +20,7 @@ import com.google.android.gms.wearable.Wearable;
 public class PulseActivity extends AppCompatActivity implements SensorEventListener {
 
     private static final String TAG = "ManualDebug";
-    private static final long MEASURE_DURATION = 30000;
+    private static final long MEASURE_DURATION = 15000;
     private SensorManager sensorManager;
     private Sensor heartRateSensor;
     private Button measurePulseButton;

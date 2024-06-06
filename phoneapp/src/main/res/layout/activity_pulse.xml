@@ -38,11 +38,58 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                    <com.jjoe64.graphview.GraphView
-                        android:id="@+id/averagePulseGraph"
-                        android:layout_width="match_parent"
-                        android:layout_height="400dp" />
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/averagePulseGraph"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average_beats_per_minute" />
+
+                    <TextView
+                        android:id="@+id/averageBpmTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/highest_beats_per_minute" />
+
+                    <TextView
+                        android:id="@+id/highestBpmTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lowest_beats_per_minute" />
+
+                    <TextView
+                        android:id="@+id/lowestBpmTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

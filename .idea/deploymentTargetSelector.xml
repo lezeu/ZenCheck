@@ -15,10 +15,10 @@
       </SelectionState>
       <SelectionState runConfigName="watchapp">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-05-15T12:31:26.321003500Z">
+        <DropdownSelection timestamp="2024-06-03T18:51:39.396222100Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="Default" identifier="serial=192.168.1.133:5555;connection=268f94e7" />
+              <DeviceId pluginId="PhysicalDevice" identifier="serial=A101X2110PB02" />
             </handle>
           </Target>
         </DropdownSelection>

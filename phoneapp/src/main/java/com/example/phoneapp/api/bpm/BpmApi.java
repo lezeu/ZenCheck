@@ -1,6 +1,7 @@
-package com.example.phoneapp.api.measurements;
+package com.example.phoneapp.api.bpm;
 
 import com.example.phoneapp.api.ApiClient;
+import com.example.phoneapp.api.MyCallback;
 import com.example.phoneapp.dtos.bpm.BpmDto;
 import com.example.phoneapp.exceptions.ZenCheckException;
 

@@ -7,8 +7,8 @@ import androidx.activity.EdgeToEdge;
 
 import com.example.phoneapp.R;
 import com.example.phoneapp.activities.BaseActivity;
-import com.example.phoneapp.api.measurements.BpmApi;
-import com.example.phoneapp.api.measurements.MyCallback;
+import com.example.phoneapp.api.MyCallback;
+import com.example.phoneapp.api.bpm.BpmApi;
 import com.example.phoneapp.dtos.bpm.BpmDto;
 import com.example.phoneapp.exceptions.ZenCheckException;
 import com.jjoe64.graphview.GraphView;
@@ -47,29 +47,31 @@ public class PulseActivity extends BaseActivity {
         DataPoint[] dataPointsAverage = new DataPoint[bpmDtos.size()];
 
         for (int i = 0; i < bpmDtos.size(); i++) {
-            dataPointsAverage[i] = new DataPoint(i, bpmDtos.get(i) == null ? 0 : bpmDtos.get(i).getBpmAverage());
+            long timestamp = bpmDtos.get(i).getTimestamp();
+            double hoursAgo = (System.currentTimeMillis() - timestamp) / (1000.0 * 60 * 60);
+            dataPointsAverage[i] = new DataPoint(24 - hoursAgo, bpmDtos.get(i).getBpmAverage());
         }
 
         LineGraphSeries<DataPoint> seriesAverage = new LineGraphSeries<>(dataPointsAverage);
 
         graphViewAverage.addSeries(seriesAverage);
-        customizeGraph(graphViewAverage, seriesAverage);
+        customizeGraph(seriesAverage);
     }
 
-    private void customizeGraph(GraphView graphView, LineGraphSeries<DataPoint> series) {
-        graphView.getViewport().setXAxisBoundsManual(true);
-        graphView.getViewport().setMinX(0);
-        graphView.getViewport().setMaxX(4);
+    private void customizeGraph(LineGraphSeries<DataPoint> series) {
+        graphViewAverage.getViewport().setXAxisBoundsManual(true);
+        graphViewAverage.getViewport().setMinX(0);
+        graphViewAverage.getViewport().setMaxX(4);
 
-        graphView.getViewport().setYAxisBoundsManual(true);
-        graphView.getViewport().setMinY(0);
-        graphView.getViewport().setMaxY(150);
+        graphViewAverage.getViewport().setYAxisBoundsManual(true);
+        graphViewAverage.getViewport().setMinY(0);
+        graphViewAverage.getViewport().setMaxY(160);
 
-        graphView.getViewport().setScrollable(true);
-        graphView.getViewport().setScrollableY(false);
+        graphViewAverage.getViewport().setScrollable(true);
+        graphViewAverage.getViewport().setScrollableY(false);
 
-        series.setColor(Color.RED);
-        series.setThickness(8);
+        series.setColor(Color.GRAY);
+        series.setThickness(4);
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(10);
     }
