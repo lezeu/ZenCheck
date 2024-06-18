@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phoneapp.activities.BaseActivity;
 import com.example.phoneapp.R;
-import com.example.phoneapp.adapters.challenges.ChallengeAdapter;
+import com.example.phoneapp.adapters.ChallengeAdapter;
 import com.example.phoneapp.dtos.challenges.Challenge;
 
 import java.util.ArrayList;

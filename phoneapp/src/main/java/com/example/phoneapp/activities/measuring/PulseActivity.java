@@ -8,7 +8,7 @@ import androidx.activity.EdgeToEdge;
 
 import com.example.phoneapp.R;
 import com.example.phoneapp.activities.BaseActivity;
-import com.example.phoneapp.adapters.graphs.CustomLineGraphSeries;
+import com.example.phoneapp.adapters.CustomLineGraphSeries;
 import com.example.phoneapp.api.MyCallback;
 import com.example.phoneapp.api.bpm.BpmApi;
 import com.example.phoneapp.dtos.bpm.BpmDto;

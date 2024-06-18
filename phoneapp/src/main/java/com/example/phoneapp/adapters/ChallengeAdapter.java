@@ -1,4 +1,4 @@
-package com.example.phoneapp.adapters.challenges;
+package com.example.phoneapp.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.example.phoneapp.adapters.graphs;
+package com.example.phoneapp.adapters;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
