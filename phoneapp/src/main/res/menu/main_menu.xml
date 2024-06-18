@@ -15,6 +15,10 @@
                     android:title="@string/stats"
                     android:icon="@drawable/baseline_query_stats_24" />
                 <item
+                    android:id="@+id/nav_challenges"
+                    android:title="@string/challenges"
+                    android:icon="@drawable/challenges" />
+                <item
                     android:id="@+id/nav_friends"
                     android:title="@string/friends"
                     android:icon="@drawable/baseline_people_24" />
