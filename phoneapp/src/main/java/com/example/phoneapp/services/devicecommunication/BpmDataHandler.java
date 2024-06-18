@@ -5,12 +5,12 @@ import android.util.Log;
 import com.example.phoneapp.api.bpm.BpmApi;
 import com.example.phoneapp.api.MyCallback;
 import com.example.phoneapp.dtos.bpm.BpmDto;
-import com.example.phoneapp.exceptions.ZenCheckException;
+import com.example.phoneapp.utils.Constants;
+import com.example.phoneapp.utils.ZenCheckException;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataMapItem;
 
 public class BpmDataHandler {
-    private static final String TAG = "ManualDebug";
 
     private BpmDataHandler() {
         throw new ZenCheckException("Utility class");
@@ -34,7 +34,7 @@ public class BpmDataHandler {
             BpmApi.INSTANCE.sendBpm(bpmDto, new MyCallback<>() {
                 @Override
                 public void onSuccess(BpmDto result) {
-                    Log.d(TAG, String.valueOf(result));
+                    Log.d(Constants.TAG, String.valueOf(result));
                 }
 
                 @Override
@@ -52,7 +52,7 @@ public class BpmDataHandler {
             float bpm = dataMapItem.getDataMap().getFloat("bpm");
             long timestamp = dataMapItem.getDataMap().getLong("timestamp");
 
-            Log.d(TAG, String.format("BPM Average: %f%ntimestamp: %d", bpm, timestamp));
+            Log.d(Constants.TAG, String.format("BPM Average: %f%ntimestamp: %d", bpm, timestamp));
         }
     }
 }

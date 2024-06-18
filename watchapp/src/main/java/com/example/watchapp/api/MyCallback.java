@@ -1,6 +1,6 @@
-package com.example.phoneapp.api;
+package com.example.watchapp.api;
 
-import com.example.phoneapp.utils.ZenCheckException;
+import com.example.watchapp.utils.ZenCheckException;
 
 public interface MyCallback<T> {
     void onSuccess(T result);

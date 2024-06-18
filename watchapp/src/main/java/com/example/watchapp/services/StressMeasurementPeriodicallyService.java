@@ -13,6 +13,11 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.watchapp.api.MyCallback;
+import com.example.watchapp.api.profile.ProfileApi;
+import com.example.watchapp.dtos.ProfileDto;
+import com.example.watchapp.utils.Constants;
+import com.example.watchapp.utils.ZenCheckException;
 import com.google.android.gms.wearable.DataClient;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.Wearable;
@@ -21,27 +26,32 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class StressMeasurementPeriodicallyService extends ForegroundService implements SensorEventListener {
 
     private static final String TAG = "ManualDebug";
     private static final int HR_STANDARD_THRESHOLD = 100;
-    private static final int SDNN_STANDARD_THRESHOLD = 50; //100
-    private static final int RMSSD_STANDARD_THRESHOLD = 16; //107
+    private static final int SDNN_STANDARD_THRESHOLD = 50; // 50-100
+    private static final int RMSSD_STANDARD_THRESHOLD = 45; // 20-70
     private static final long MEASUREMENT_DURATION = 15 * 1000L;
     private static final long MEASUREMENT_INTERVAL = 5 * 60 * 1000L;
+    private final Handler handler = new Handler(Looper.getMainLooper());
+
     private SensorManager sensorManager;
     private Sensor hearthSensor;
     private Context context;
-
+    private float hrThreshold;
+    private float sdnnThreshold;
+    private float rmssdThreshold;
     private List<Float> rrIntervals = new ArrayList<>();
-    private Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
 
-        // Get profile information and set Male and Female RMSSD and SDNN values
+        // Get profile information
+
 
         createNotificationChannel();
         startForeground(1, buildForegroundNotification());
@@ -55,7 +65,7 @@ public class StressMeasurementPeriodicallyService extends ForegroundService impl
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         sensorManager.registerListener(
-                this, hearthSensor, SensorManager.SENSOR_DELAY_UI);
+                this, hearthSensor, SensorManager.SENSOR_DELAY_NORMAL);
         return START_STICKY;
     }
 
@@ -84,37 +94,61 @@ public class StressMeasurementPeriodicallyService extends ForegroundService impl
         // Handle accuracy changes if necessary
     }
 
-    private Runnable measurementRunnable = () -> sensorManager.unregisterListener(
-            StressMeasurementPeriodicallyService.this, hearthSensor);
+    private final Runnable measurementRunnable = () -> sensorManager.unregisterListener(
+            StressMeasurementPeriodicallyService.this);
 
 
-    private Runnable stressAssessRunnable = new Runnable() {
+    private final Runnable stressAssessRunnable = new Runnable() {
 
         @Override
         public void run() {
+            long currentTime = System.currentTimeMillis();
+
             sensorManager.registerListener(
                     StressMeasurementPeriodicallyService.this,
                     hearthSensor,
-                    SensorManager.SENSOR_DELAY_UI);
+                    SensorManager.SENSOR_DELAY_NORMAL);
             handler.postDelayed(measurementRunnable, MEASUREMENT_DURATION);
 
             handler.postDelayed(() -> {
-                long currentTime = System.currentTimeMillis();
-
                 if (!rrIntervals.isEmpty()) {
                     float hr = calculateHR(rrIntervals);
                     float sdnn = calculateSDNN(rrIntervals);
                     float rmssd = calculateRMSSD(rrIntervals);
 
-                    String stressLevel = assessStress(hr, sdnn, rmssd);
-                    if (!"Not Stressed".equals(stressLevel)) {
-                        notifyUser(stressLevel);
-                    }
+                    ProfileApi.INSTANCE.getProfile(new MyCallback<>() {
+                        @Override
+                        public void onSuccess(ProfileDto result) {
+                            hrThreshold = result.getHrThreshold();
+                            sdnnThreshold = result.getSdnnThreshold();
+                            rmssdThreshold = result.getRmssdThreshold();
 
-                    sendDataToPhone(stressLevel, hr, sdnn, rmssd, currentTime);
-                    rrIntervals.clear();
+                            String stressLevel = assessStress(hr, sdnn, rmssd);
+                            if (stressLevel.equals(Constants.VERY_HIGH_STRESS)) {
+                                notifyUser(stressLevel);
+                            }
+
+                            sendDataToPhone(stressLevel, hr, sdnn, rmssd, currentTime);
+                            rrIntervals.clear();
+                        }
+
+                        @Override
+                        public void onFailure(ZenCheckException exception) {
+                            hrThreshold = HR_STANDARD_THRESHOLD;
+                            sdnnThreshold = SDNN_STANDARD_THRESHOLD;
+                            rmssdThreshold = RMSSD_STANDARD_THRESHOLD;
+
+                            String stressLevel = assessStress(hr, sdnn, rmssd);
+                            if (stressLevel.equals(Constants.VERY_HIGH_STRESS)) {
+                                notifyUser(stressLevel);
+                            }
+
+                            sendDataToPhone(stressLevel, hr, sdnn, rmssd, currentTime);
+                            rrIntervals.clear();
+                        }
+                    });
                 }
-                handler.postDelayed(stressAssessRunnable, MEASUREMENT_INTERVAL - MEASUREMENT_DURATION);
+                handler.postDelayed(stressAssessRunnable, MEASUREMENT_INTERVAL - MEASUREMENT_DURATION - (System.currentTimeMillis() - currentTime));
             }, MEASUREMENT_DURATION);
         }
 
@@ -154,12 +188,20 @@ public class StressMeasurementPeriodicallyService extends ForegroundService impl
         }
 
         private String assessStress(float hr, float sdnn, float rmssd) {
-            if (hr > HR_STANDARD_THRESHOLD && (sdnn < SDNN_STANDARD_THRESHOLD || rmssd < RMSSD_STANDARD_THRESHOLD)) {
-                return "Highly Stressed";
-            } else if (hr > HR_STANDARD_THRESHOLD || sdnn < SDNN_STANDARD_THRESHOLD || rmssd < RMSSD_STANDARD_THRESHOLD) {
-                return "Stressed";
+            if (hr > hrThreshold
+                    && sdnn < sdnnThreshold
+                    && rmssd < rmssdThreshold) {
+                return Constants.VERY_HIGH_STRESS; // intense physical activity / high stress activity
+            } else if ((hr > hrThreshold && sdnn < sdnnThreshold)
+                    || (hr > hrThreshold && rmssd < rmssdThreshold)
+                    || (sdnn < sdnnThreshold && rmssd < rmssdThreshold)) {
+                return Constants.HIGH_STRESS; // some kind of stress / activity
+            } else if (hr > hrThreshold
+                    || sdnn < sdnnThreshold
+                    || rmssd < rmssdThreshold) {
+                return Constants.LOW_STRESS; // daily activity
             } else {
-                return "Not Stressed";
+                return Constants.VERY_LOW_STRESS; // calm / rest / sleeping
             }
         }
 

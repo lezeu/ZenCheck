@@ -1,5 +1,7 @@
 package com.example.phoneapp.services.devicecommunication;
 
+import static com.example.phoneapp.utils.Constants.CHANNEL_ID;
+
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -9,6 +11,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.example.phoneapp.R;
+import com.example.phoneapp.utils.Constants;
 import com.google.android.gms.wearable.DataClient;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
@@ -19,9 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataLayerListenerService extends WearableListenerService implements DataClient.OnDataChangedListener {
-    private static final String TAG = "ManualDebug";
-    private static final String CHANNEL_ID = "ForegroundServiceChannel";
-
     private final Map<String, DataHandler> dataHandlerMap = new HashMap<>();
 
     @SuppressLint("ForegroundServiceType")
@@ -53,7 +53,7 @@ public class DataLayerListenerService extends WearableListenerService implements
             if (event.getType() == DataEvent.TYPE_CHANGED && dataHandlerMap.containsKey(path)) {
                 dataHandlerMap.get(path).handleData(event);
             } else {
-                Log.w(TAG, "No handler registered for path: " + path);
+                Log.w(Constants.TAG, "No handler registered for path: " + path);
             }
         }
     }

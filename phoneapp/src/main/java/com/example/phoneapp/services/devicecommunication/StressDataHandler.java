@@ -5,12 +5,12 @@ import android.util.Log;
 import com.example.phoneapp.api.MyCallback;
 import com.example.phoneapp.api.stress.StressApi;
 import com.example.phoneapp.dtos.pulse.StressDto;
-import com.example.phoneapp.exceptions.ZenCheckException;
+import com.example.phoneapp.utils.Constants;
+import com.example.phoneapp.utils.ZenCheckException;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataMapItem;
 
 public class StressDataHandler {
-    private static final String TAG = "ManualDebug";
 
     private StressDataHandler() {
         throw new ZenCheckException("Utility class");
@@ -36,7 +36,7 @@ public class StressDataHandler {
             StressApi.INSTANCE.sendStress(stressDto, new MyCallback<>() {
                 @Override
                 public void onSuccess(StressDto result) {
-                    Log.d(TAG, String.valueOf(result));
+                    Log.d(Constants.TAG, String.valueOf(result));
                 }
 
                 @Override

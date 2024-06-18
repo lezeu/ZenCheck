@@ -3,7 +3,7 @@ package com.example.phoneapp.api.stress;
 import com.example.phoneapp.api.ApiClient;
 import com.example.phoneapp.api.MyCallback;
 import com.example.phoneapp.dtos.pulse.StressDto;
-import com.example.phoneapp.exceptions.ZenCheckException;
+import com.example.phoneapp.utils.ZenCheckException;
 
 import java.util.List;
 

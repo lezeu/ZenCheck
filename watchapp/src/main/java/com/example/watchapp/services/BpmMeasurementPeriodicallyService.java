@@ -1,5 +1,7 @@
 package com.example.watchapp.services;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -22,14 +24,14 @@ import java.util.List;
 
 public class BpmMeasurementPeriodicallyService extends ForegroundService implements SensorEventListener {
 
-    private static final String TAG = "ManualDebug";
     private static final Long MEASUREMENT_DURATION = 15 * 1000L;
     private static final Long MEASUREMENT_INTERVAL = 5 * 60 * 1000L;
+    private final Handler handler = new Handler(Looper.getMainLooper());
+
     private Context context;
     private SensorManager sensorManager;
     private Sensor heartRateSensor;
     private List<Float> bpmValues = new ArrayList<>();
-    private Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     public void onCreate() {
@@ -42,7 +44,7 @@ public class BpmMeasurementPeriodicallyService extends ForegroundService impleme
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         heartRateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
 
-        handler.postDelayed(bpmAssessRunnabled, MEASUREMENT_INTERVAL);
+        handler.postDelayed(bpmAssessRunnable, MEASUREMENT_INTERVAL);
     }
 
     @Override
@@ -77,16 +79,17 @@ public class BpmMeasurementPeriodicallyService extends ForegroundService impleme
         // Handle accuracy changes if necessary
     }
 
-    private Runnable measurementRunnable = () -> sensorManager.unregisterListener(
-            BpmMeasurementPeriodicallyService.this, heartRateSensor);
+    private final Runnable measurementRunnable = () -> sensorManager.unregisterListener(
+            BpmMeasurementPeriodicallyService.this);
 
-    private Runnable bpmAssessRunnabled = new Runnable() {
-
+    private final Runnable bpmAssessRunnable = new Runnable() {
         @Override
         public void run() {
+            long startTime = System.currentTimeMillis();
+
             sensorManager.registerListener(BpmMeasurementPeriodicallyService.this,
                     heartRateSensor, SensorManager.
-                            SENSOR_DELAY_UI);
+                            SENSOR_DELAY_NORMAL);
             handler.postDelayed(measurementRunnable, MEASUREMENT_DURATION);
 
             handler.postDelayed(() -> {
@@ -94,7 +97,7 @@ public class BpmMeasurementPeriodicallyService extends ForegroundService impleme
                         getAverageBpm(bpmValues), getHighestBpm(bpmValues), getLowestBpm(bpmValues));
 
                 bpmValues.clear();
-                handler.postDelayed(bpmAssessRunnabled, MEASUREMENT_INTERVAL);
+                handler.postDelayed(bpmAssessRunnable, MEASUREMENT_INTERVAL - MEASUREMENT_DURATION - (System.currentTimeMillis() - startTime));
             }, MEASUREMENT_INTERVAL);
         }
 

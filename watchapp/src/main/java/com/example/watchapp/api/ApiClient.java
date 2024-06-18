@@ -1,4 +1,4 @@
-package com.example.phoneapp.api;
+package com.example.watchapp.api;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,9 +21,10 @@ public class ApiClient<T> {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-               .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(client).build();
 
         return retrofit.create(serviceClass);
     }
 }
+

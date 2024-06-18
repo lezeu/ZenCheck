@@ -11,8 +11,7 @@ import com.example.watchapp.activities.measuring.StressActivity;
 import com.example.watchapp.services.BpmMeasurementPeriodicallyService;
 import com.example.watchapp.services.StressMeasurementPeriodicallyService;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

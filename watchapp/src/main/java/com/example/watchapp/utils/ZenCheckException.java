@@ -1,4 +1,4 @@
-package com.example.phoneapp.exceptions;
+package com.example.watchapp.utils;
 
 public class ZenCheckException extends RuntimeException {
 

@@ -1,5 +1,7 @@
 package com.example.watchapp.activities.measuring;
 
+import static android.content.ContentValues.TAG;
+
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -18,8 +20,6 @@ import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.Wearable;
 
 public class PulseActivity extends AppCompatActivity implements SensorEventListener {
-
-    private static final String TAG = "ManualDebug";
     private static final long MEASURE_DURATION = 15000;
     private SensorManager sensorManager;
     private Sensor heartRateSensor;
@@ -61,8 +61,10 @@ public class PulseActivity extends AppCompatActivity implements SensorEventListe
                 stopMeasurement();
             }
 
-            totalBpm += heartRate;
-            countReadings++;
+            if (heartRate > 0) {
+                totalBpm += heartRate;
+                countReadings++;
+            }
 
             if (System.currentTimeMillis() - startTime >= MEASURE_DURATION) {
                 float averageBpm = totalBpm / countReadings;
@@ -98,6 +100,7 @@ public class PulseActivity extends AppCompatActivity implements SensorEventListe
 
     /**
      * send bpm to phone as well as timestamp to /sensor-data/bpm route
+     *
      * @param bpm - send bpm to phone
      */
     public void sendBpmDataToPhone(float bpm) {
