@@ -112,3 +112,5 @@ Gwatchapp/src/main/java/com/example/watchapp/api/profile/ProfileApi.java,b\7\b7
 Uphoneapp/src/main/java/com/example/phoneapp/adapters/graphspage/TimeRangeAdapter.java,0\b\0b9fc53e75097a15150ac7dde2f0c87d78e4f371
 z
 Jphoneapp/src/main/java/com/example/phoneapp/adapters/TimeRangeAdapter.java,c\9\c90d401112b197ecc08e7cb3d914c5ff1db3af49
+{
+Kphoneapp/src/main/java/com/example/phoneapp/adapters/StressItemAdapter.java,9\7\97275719e4debe490a88c272152e7696623732b1

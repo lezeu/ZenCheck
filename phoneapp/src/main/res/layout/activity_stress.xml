@@ -47,91 +47,74 @@
                     android:id="@+id/add_event_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add event"
-                    android:layout_gravity="center_horizontal"
-                    android:padding="8dp" />
-
-                <!--<TextView
-                    android:id="@+id/select_time_interval_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select time interval"
-                    android:textSize="18sp"
-                    android:padding="8dp"
-                    android:layout_gravity="center_horizontal" />
-
-                <TimePicker
-                    android:id="@+id/time_picker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:timePickerMode="spinner"
                     android:layout_gravity="center_horizontal"
                     android:padding="8dp"
-                    set/>-->
-
-                <TextView
-                    android:id="@+id/time_range_display"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Selected Time Range"
-                    android:textSize="18sp"
-                    android:padding="8dp"
-                    android:layout_gravity="center_horizontal" />
-
-                <Button
-                    android:id="@+id/show_dialog_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select Time Range"
-                    android:layout_gravity="center_horizontal"
-                    android:padding="8dp" />
-
-                <TextView
-                    android:id="@+id/end_time_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Actual stress level"
-                    android:textSize="18sp"
-                    android:padding="8dp"
-                    android:layout_gravity="center_horizontal" />
-
-                <!--<TextView
-                    android:id="@+id/actual_stress_level_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Actual stress level"
-                    android:textSize="18sp"
-                    android:padding="8dp"
-                    android:layout_gravity="center_horizontal" />
-
-                <TimePicker
-                    android:id="@+id/stress_level_picker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:timePickerMode="spinner"
-                    android:layout_gravity="center_horizontal"
-                    android:padding="8dp" />-->
+                    android:text="@string/add_event"
+                    android:visibility="visible"/>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/time_and_stress_ranges"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal"
-                    android:padding="8dp">
+                    android:orientation="vertical"
+                    android:visibility="invisible">
 
-                    <Button
-                        android:id="@+id/discard_changes"
+                    <TextView
+                        android:id="@+id/time_range_display"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Discard"
-                        android:padding="8dp" />
+                        android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
+                        android:text="@string/selected_time_range"
+                        android:textSize="18sp" />
 
                     <Button
-                        android:id="@+id/save_changes"
+                        android:id="@+id/show_time_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Save"
-                        android:padding="8dp"/>
+                        android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
+                        android:text="@string/select_time_range" />
+
+                    <TextView
+                        android:id="@+id/stress_range_display"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
+                        android:text="@string/actual_stress_level"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/show_stress_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
+                        android:text="@string/select_actual_stress_level" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <Button
+                            android:id="@+id/discard_changes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:text="@string/discard" />
+
+                        <Button
+                            android:id="@+id/save_changes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:text="@string/save" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>

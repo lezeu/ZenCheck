@@ -49,4 +49,14 @@
     <string name="average_beats_per_minute">Average Beats Per Minute :</string>
     <string name="highest_beats_per_minute">Highest Beats Per Minute :</string>
     <string name="lowest_beats_per_minute">Lowest Beats Per Minute :</string>
+    <string name="select_time_range">Select Time Range</string>
+    <string name="actual_stress_level">Actual stress level</string>
+    <string name="select_actual_stress_level">Select Actual stress level</string>
+    <string name="discard">Discard</string>
+    <string name="save">Save</string>
+    <string name="select_stress_level">Select Stress Level</string>
+    <string name="confirm">Confirm</string>
+    <string name="select_time_interval">Select Time Interval</string>
+    <string name="selected_time_range">Selected Time Range</string>
+    <string name="add_event">Add event</string>
 </resources>
