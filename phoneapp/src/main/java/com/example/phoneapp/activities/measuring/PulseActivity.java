@@ -56,7 +56,7 @@ public class PulseActivity extends BaseActivity {
 
         }
 
-        CustomLineGraphSeries seriesAverage = new CustomLineGraphSeries(dataPointsAverage, 120);
+        CustomLineGraphSeries seriesAverage = new CustomLineGraphSeries(dataPointsAverage, 120, 40);
 
         graphViewAverage.addSeries(seriesAverage);
         customizeGraph(seriesAverage);

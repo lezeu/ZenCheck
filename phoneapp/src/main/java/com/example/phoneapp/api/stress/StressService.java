@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface StressService {
     @GET("/api/stress")
@@ -16,4 +17,6 @@ public interface StressService {
     Call<StressDto> sendStress(@Body StressDto stressDto);
     @GET("/api/stress/daily")
     Call<List<StressDto>> getDailyStress();
+    @GET("/api/stress/hour")
+    Call<List<StressDto>> getHourStress(@Query("hour") int hour);
 }

@@ -12,11 +12,13 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.Iterator;
 
 public class CustomLineGraphSeries extends LineGraphSeries<DataPoint> {
-    private double threshold;
+    private double max;
+    private double min;
 
-    public CustomLineGraphSeries(DataPoint[] data, double threshold) {
+    public CustomLineGraphSeries(DataPoint[] data, double max, double min) {
         super(data);
-        this.threshold = threshold;
+        this.max = max;
+        this.min = min;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class CustomLineGraphSeries extends LineGraphSeries<DataPoint> {
             double y = graphView.getGraphContentTop() + (maxY - point.getY()) / (maxY - minY) * graphView.getGraphContentHeight();
 
             Paint paint = new Paint();
-            paint.setColor(point.getY() > threshold ? Color.RED : Color.GREEN);
+            paint.setColor(point.getY() > max ? Color.RED : point.getY() < min ? Color.RED : Color.GREEN);
             paint.setStyle(Paint.Style.FILL);
             canvas.drawCircle((float) x, (float) y, 10, paint);
         }

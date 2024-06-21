@@ -39,14 +39,11 @@ public class TimeRangeAdapter extends RecyclerView.Adapter<TimeRangeAdapter.Time
         String timeRange = timeRanges.get(position);
         holder.timeRangeTextView.setText(timeRange);
         holder.itemView.setSelected(selectedPosition == position); // highlight selected item
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onTimeRangeSelected(timeRange);
-                notifyItemChanged(selectedPosition); // update previously selected item
-                selectedPosition = holder.getAdapterPosition(); // set new position
-                notifyItemChanged(selectedPosition); // update new selected item
-            }
+        holder.itemView.setOnClickListener(v -> {
+            listener.onTimeRangeSelected(timeRange);
+            notifyItemChanged(selectedPosition); // update previously selected item
+            selectedPosition = holder.getAdapterPosition(); // set new position
+            notifyItemChanged(selectedPosition); // update new selected item
         });
     }
 

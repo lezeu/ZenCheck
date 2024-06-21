@@ -1,5 +1,3 @@
 
-E
-java:S1604*"(Make this anonymous inner class a lambda(Ö¹™º8¶Î¦é‚2
 W
-java:S1874/":Remove this use of "getAdapterPosition"; it is deprecated.(ñ¹«¶8ÏÎ¦é‚2
+java:S1874-":Remove this use of "getAdapterPosition"; it is deprecated.(ñ¹«¶8ÝåóÝƒ2

@@ -76,4 +76,23 @@ public enum StressApi {
             }
         });
     }
+
+    public void getHourStress(int hour, MyCallback<List<StressDto>> stressCallback) {
+        Call<List<StressDto>> call = service.getHourStress(hour);
+        call.enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<List<StressDto>> call, Response<List<StressDto>> response) {
+                if (response.isSuccessful()) {
+                    stressCallback.onSuccess(response.body());
+                } else {
+                    stressCallback.onFailure(new ZenCheckException(response.message()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<StressDto>> call, Throwable t) {
+                stressCallback.onFailure(new ZenCheckException(t.getMessage()));
+            }
+        });
+    }
 }

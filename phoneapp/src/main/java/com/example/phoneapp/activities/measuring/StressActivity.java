@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -19,8 +20,11 @@ import com.example.phoneapp.adapters.CustomLineGraphSeries;
 import com.example.phoneapp.adapters.StressItemAdapter;
 import com.example.phoneapp.adapters.TimeRangeAdapter;
 import com.example.phoneapp.api.MyCallback;
+import com.example.phoneapp.api.profile.ProfileApi;
 import com.example.phoneapp.api.stress.StressApi;
+import com.example.phoneapp.dtos.profile.ProfileDto;
 import com.example.phoneapp.dtos.pulse.StressDto;
+import com.example.phoneapp.utils.Constants;
 import com.example.phoneapp.utils.ZenCheckException;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -30,15 +34,21 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StressActivity extends BaseActivity {
     private GraphView stressGraphView;
+    private LinearLayout timeAndStressLayout;
     private TextView timeRangeDisplay;
     private TextView stressRangeDisplay;
-    private LinearLayout timeAndStressLayout;
+    private Button addEventButton;
     private String selectedTimeRange;
     private String selectedStressRange;
+    private float actualHrThreshold;
+    private float actualSdnnThreshold;
+    private float actualRmssdThreshold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +57,11 @@ public class StressActivity extends BaseActivity {
         setContentView(R.layout.activity_stress);
 
         setupDrawer(R.id.drawer_layout, R.id.design_navigation_view);
+        timeAndStressLayout = findViewById(R.id.time_and_stress_ranges);
         stressGraphView = findViewById(R.id.stressGraph);
         timeRangeDisplay = findViewById(R.id.time_range_display);
         stressRangeDisplay = findViewById(R.id.stress_range_display);
-        timeAndStressLayout = findViewById(R.id.time_and_stress_ranges);
+        addEventButton = findViewById(R.id.add_event_button);
 
         StressApi.INSTANCE.getDailyStress(new MyCallback<>() {
             @Override
@@ -68,19 +79,18 @@ public class StressActivity extends BaseActivity {
         showTimeButton.setOnClickListener(v -> showTimeRangePickerDialog());
         Button showStressButton = findViewById(R.id.show_stress_button);
         showStressButton.setOnClickListener(v -> showStressRangePickerDialog());
-        Button addEventButton = findViewById(R.id.add_event_button);
         addEventButton.setOnClickListener(v -> {
             timeAndStressLayout.setVisibility(View.VISIBLE);
             addEventButton.setVisibility(View.INVISIBLE);
         });
         Button saveChangesButton = findViewById(R.id.save_changes);
         saveChangesButton.setOnClickListener(v -> {
-            // calculate new Thresholds
-            // save them to profile
-            timeAndStressLayout.setVisibility(View.INVISIBLE);
-            addEventButton.setVisibility(View.VISIBLE);
-            timeRangeDisplay.setText(R.string.select_time_range);
-            stressRangeDisplay.setText(R.string.actual_stress_level);
+            if (!timeRangeDisplay.getText().toString().equalsIgnoreCase("Time Range")
+                    && !stressRangeDisplay.getText().toString().equalsIgnoreCase("Stress level")) {
+                sendNewThresholds(); // calculate and save thresholds
+            } else {
+                // show error toast message to fill in time and stress
+            }
         });
         Button discardChangesButton = findViewById(R.id.discard_changes);
         discardChangesButton.setOnClickListener(v -> {
@@ -100,8 +110,7 @@ public class StressActivity extends BaseActivity {
             points[i] = new DataPoint(24 - hoursAgo, stressDtos.get(i).getSdnn());
         }
 
-        double colorThreshold = 50;
-        CustomLineGraphSeries series = new CustomLineGraphSeries(points, colorThreshold);
+        CustomLineGraphSeries series = new CustomLineGraphSeries(points, 70, 20);
         stressGraphView.addSeries(series);
         customizeGraph(series);
     }
@@ -142,7 +151,6 @@ public class StressActivity extends BaseActivity {
         series.setDataPointsRadius(10);
     }
 
-
     private void showTimeRangePickerDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_time_range_picker);
@@ -163,7 +171,6 @@ public class StressActivity extends BaseActivity {
         dialog.show();
     }
 
-
     private void showStressRangePickerDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_stress_range_picker);
@@ -172,7 +179,7 @@ public class StressActivity extends BaseActivity {
         stringItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<String> stringItems = Arrays.asList(
-                "Very High Stress", "High Stress", "Low Stress", "No Stress");
+                Constants.VERY_HIGH_STRESS, Constants.HIGH_STRESS, Constants.LOW_STRESS, Constants.VERY_LOW_STRESS);
         StressItemAdapter adapter = new StressItemAdapter(
                 stringItems, stringItem -> {
                     selectedStressRange = stringItem;
@@ -198,5 +205,132 @@ public class StressActivity extends BaseActivity {
         }
 
         return timeRanges;
+    }
+
+    private void sendNewThresholds() {
+        int hour = Integer.parseInt(timeRangeDisplay.getText().toString().split(":")[0]);
+
+        StressApi.INSTANCE.getHourStress(hour, new MyCallback<>() {
+            @Override
+            public void onSuccess(List<StressDto> result) {
+                if (!result.isEmpty()) {
+                    calculateNewThresholds(result);
+                }
+            }
+
+            @Override
+            public void onFailure(ZenCheckException exception) {
+                throw new ZenCheckException(exception.getMessage());
+            }
+        });
+    }
+
+    private void calculateNewThresholds(List<StressDto> result) {
+        if (!result.isEmpty()) {
+            float sumHr = 0;
+            float sumSdnn = 0;
+            float sumRmssd = 0;
+
+            for (StressDto stressDto : result) {
+                if (stressDto.getHr() > 0.0f && stressDto.getSdnn() > 0.0f && stressDto.getRmssd() > 0.0f) {
+                    sumHr += stressDto.getHr();
+                    sumSdnn += stressDto.getSdnn();
+                    sumRmssd += stressDto.getRmssd();
+                }
+            }
+
+            float hourHrAverage = sumHr / result.size();
+            float hourSdnnAverage = sumSdnn / result.size();
+            float hourRmssdAverage = sumRmssd / result.size();
+
+            ProfileApi.INSTANCE.getProfile(new MyCallback<>() {
+                @Override
+                public void onSuccess(ProfileDto result) {
+                    actualHrThreshold = result.getHrThreshold();
+                    actualSdnnThreshold = result.getSdnnThreshold();
+                    actualRmssdThreshold = result.getRmssdThreshold();
+
+                    String actualStress = assessStress(hourHrAverage, hourSdnnAverage, hourRmssdAverage); // in case the threshold changed after the measurement
+                    String userStress = stressRangeDisplay.getText().toString();
+
+                    Map<String, Integer> stressMap = new HashMap<>();
+                    stressMap.put(Constants.VERY_HIGH_STRESS, 0);
+                    stressMap.put(Constants.HIGH_STRESS, 1);
+                    stressMap.put(Constants.LOW_STRESS, 2);
+                    stressMap.put(Constants.VERY_LOW_STRESS, 3);
+
+                    if (stressMap.get(userStress) > stressMap.get(actualStress)) { // decrease threshold
+                        if (hourSdnnAverage < actualSdnnThreshold) {
+                            actualSdnnThreshold *= 0.95f;
+                        }
+                        if (hourRmssdAverage < actualRmssdThreshold) {
+                            actualRmssdThreshold *= 0.95f;
+                        }
+                        if (hourHrAverage < actualHrThreshold) {
+                            actualHrThreshold *= 0.95f;
+                        }
+                    } else if (stressMap.get(userStress) < stressMap.get(actualStress)) { // increase threshold
+                        if (hourSdnnAverage > actualSdnnThreshold) {
+                            actualSdnnThreshold *= 1.05f;
+                        }
+                        if (hourRmssdAverage > actualRmssdThreshold) {
+                            actualRmssdThreshold *= 1.05f;
+                        }
+                        if (hourHrAverage > actualHrThreshold) {
+                            actualHrThreshold *= 1.05f;
+                        }
+                    }else {
+                        Log.d(Constants.TAG, "Stress was the same");
+                    }
+
+                    ProfileDto profileDto = ProfileDto.builder()
+                            .hrThreshold(actualHrThreshold)
+                            .sdnnThreshold(actualSdnnThreshold)
+                            .rmssdThreshold(actualRmssdThreshold).build();
+                    ProfileApi.INSTANCE.updateProfile(profileDto, new MyCallback<>() {
+                        @Override
+                        public void onSuccess(ProfileDto result) {
+                            Log.d(Constants.TAG, result.toString());
+                            Log.d(Constants.TAG, String.valueOf(hourHrAverage));
+                            Log.d(Constants.TAG, String.valueOf(hourSdnnAverage));
+                            Log.d(Constants.TAG, String.valueOf(hourRmssdAverage));
+                        }
+
+                        @Override
+                        public void onFailure(ZenCheckException exception) {
+                            throw new ZenCheckException(exception.getMessage());
+                        }
+                    });
+
+                    timeAndStressLayout.setVisibility(View.INVISIBLE);
+                    addEventButton.setVisibility(View.VISIBLE);
+                    timeRangeDisplay.setText(R.string.select_time_range);
+                    stressRangeDisplay.setText(R.string.actual_stress_level);
+                }
+
+                @Override
+                public void onFailure(ZenCheckException exception) {
+                    throw new ZenCheckException(exception.getMessage());
+                }
+            });
+        }
+    }
+
+    private String assessStress(float hourHrAverage, float hourSdnnAverage, float hourRmssdAverage) {
+        if (hourHrAverage > actualHrThreshold
+                && hourSdnnAverage < actualSdnnThreshold
+                && hourRmssdAverage < actualRmssdThreshold) {
+            return Constants.VERY_HIGH_STRESS;
+        } else if ((hourHrAverage > actualHrThreshold && hourSdnnAverage < actualSdnnThreshold)
+                || (hourHrAverage > actualHrThreshold && hourRmssdAverage < actualRmssdThreshold)
+                || (hourSdnnAverage < actualSdnnThreshold && hourRmssdAverage < actualRmssdThreshold)) {
+            return Constants.HIGH_STRESS;
+        } else if (hourHrAverage > actualHrThreshold
+                || hourSdnnAverage < actualSdnnThreshold
+                || hourRmssdAverage < actualRmssdThreshold) {
+            return Constants.LOW_STRESS;
+        } else {
+            return Constants.VERY_LOW_STRESS;
+        }
     }
 }

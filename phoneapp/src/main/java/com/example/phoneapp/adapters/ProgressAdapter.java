@@ -14,24 +14,24 @@ import com.example.phoneapp.dtos.challenges.Progress;
 
 import java.util.List;
 
-public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ChallengeViewHolder> {
+public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.ChallengeViewHolder> {
 
     private final List<Progress> challengeList;
 
-    public ChallengeAdapter(List<Progress> challengeList) {
+    public ProgressAdapter(List<Progress> challengeList) {
         this.challengeList = challengeList;
     }
 
     @NonNull
     @Override
-    public ChallengeAdapter.ChallengeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChallengeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_challenge, parent, false);
-        return new ChallengeAdapter.ChallengeViewHolder(itemView);
+                .inflate(R.layout.item_progress, parent, false);
+        return new ChallengeViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ChallengeAdapter.ChallengeViewHolder holder, int position) {
+    public void onBindViewHolder(ChallengeViewHolder holder, int position) {
         Progress challenge = challengeList.get(position);
 
         holder.title.setText(challenge.title());

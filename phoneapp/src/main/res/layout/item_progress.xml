@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_progress"
-    android:layout_width="400dp"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
@@ -29,11 +29,11 @@
         app:layout_constraintStart_toEndOf="@+id/challenge_image"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/start_challenge"
-        android:layout_width="100dp"
+    <CheckBox
+        android:id="@+id/challenge_progress_checkbox"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="Start"
+        android:checked="false"
         app:layout_constraintBottom_toBottomOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/challenge_title" />
