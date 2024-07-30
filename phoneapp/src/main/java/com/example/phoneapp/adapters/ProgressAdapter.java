@@ -35,7 +35,7 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.Challe
         Progress challenge = challengeList.get(position);
 
         holder.title.setText(challenge.title());
-        holder.points.setText(challenge.points());
+        holder.points.setText(String.valueOf(challenge.points()));
         holder.image.setImageResource(challenge.image());
     }
 

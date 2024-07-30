@@ -134,17 +134,6 @@
                             app:layout_constraintStart_toStartOf="@+id/textView_challenges_name"
                             app:layout_constraintTop_toBottomOf="@+id/textView_challenges_name" />
 
-                        <ProgressBar
-                            android:id="@+id/challenges_progressBar"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:progress="65"
-                            app:layout_constraintEnd_toEndOf="@+id/textView_challenges_description"
-                            app:layout_constraintStart_toStartOf="@+id/textView_challenges_description"
-                            app:layout_constraintTop_toBottomOf="@+id/textView_challenges_description" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -194,17 +183,6 @@
                             app:layout_constraintEnd_toEndOf="@+id/textView_progress_title"
                             app:layout_constraintStart_toStartOf="@+id/textView_progress_title"
                             app:layout_constraintTop_toBottomOf="@+id/textView_progress_title" />
-
-                        <ProgressBar
-                            android:id="@+id/progress_progressBar"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:progress="65"
-                            app:layout_constraintEnd_toEndOf="@+id/textView_progress_description"
-                            app:layout_constraintStart_toStartOf="@+id/textView_progress_description"
-                            app:layout_constraintTop_toBottomOf="@+id/textView_progress_description" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>

@@ -1,4 +1,6 @@
 package com.example.phoneapp.dtos.challenges;
 
-public record Progress(String title, String points, boolean streak, int image, boolean status) {
+import java.time.Duration;
+
+public record Progress(String title, String description, long points, boolean streak, int image, boolean status, Duration duration) {
 }

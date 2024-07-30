@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:id="@+id/progress_relative_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.3">
+
+        <ProgressBar
+            android:id="@+id/challenge_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:indeterminate="false"
+            android:indeterminateOnly="true"
+            android:progress="0"
+            android:max="100"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/timerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Timer"
+            android:textSize="30sp"
+            android:textColor="@android:color/black"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/start_challenge_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Start Challenge"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@+id/progress_relative_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="1"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/cancel_timer_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textColor="@android:color/black"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/start_challenge_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/view_progress_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="View Progress"
+        android:textColor="@android:color/black"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/start_challenge_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+        android:layout_marginTop="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

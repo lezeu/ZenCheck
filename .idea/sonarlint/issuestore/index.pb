@@ -104,3 +104,13 @@ y
 Iphoneapp/src/main/java/com/example/phoneapp/dtos/challenges/Progress.java,f\1\f160a407b468ed80c59c5e0d84ddce544e432240
 y
 Iphoneapp/src/main/java/com/example/phoneapp/adapters/ProgressAdapter.java,d\e\de1e477df1897e1938f3918176155366c6f99d35
+ç
+]phoneapp/src/main/java/com/example/phoneapp/activities/challenges/ChallengeTimerActivity.java,c\d\cd5ae166c546b09475dcc6a1502d7555285bdcf7
+Ö
+Uphoneapp/src/main/java/com/example/phoneapp/dtos/challenges/ChallengeResponseDto.java,d\b\db28ee13add97f67594f930e56ada9dd7dfb4d07
+
+Ophoneapp/src/main/java/com/example/phoneapp/api/challenge/ChallengeService.java,c\5\c594c92f2d83afafba3533b381ee331af233a0f7
+{
+Kphoneapp/src/main/java/com/example/phoneapp/api/challenge/ChallengeApi.java,c\8\c82736512698d7b017d847da886d97b6d8775fdc
+}
+Mphoneapp/src/main/java/com/example/phoneapp/dtos/challenges/ChallengeDto.java,c\0\c0f8bbf4896ac8bf762e09b28bc2077555514b82

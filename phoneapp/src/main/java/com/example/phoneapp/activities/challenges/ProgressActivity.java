@@ -11,6 +11,7 @@ import com.example.phoneapp.activities.BaseActivity;
 import com.example.phoneapp.adapters.ProgressAdapter;
 import com.example.phoneapp.dtos.challenges.Progress;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +34,12 @@ public class ProgressActivity extends BaseActivity {
     }
 
     private void addChallenges() {
+        //TODO get from DB
         challengeList = new ArrayList<>();
 
-        challengeList.add(new Progress("Go for a run", "Points: 1", false, R.drawable.run, false));
-        challengeList.add(new Progress("Take a cold shower", "Points: 2", true, R.drawable.shower, false));
-        challengeList.add(new Progress("Meditate", "Points: 3", false, R.drawable.meditate, false));
+        challengeList.add(new Progress("RUN", "", 1, false, R.drawable.run, false, Duration.ofSeconds(360)));
+        challengeList.add(new Progress("SHOWER", "", 2, true, R.drawable.shower, false, Duration.ofSeconds(30)));
+        challengeList.add(new Progress("MEDITATE", "", 3, false, R.drawable.meditate, false, Duration.ofSeconds(120)));
 
         challengeAdapter = new ProgressAdapter(challengeList);
         recyclerView.setAdapter(challengeAdapter);
